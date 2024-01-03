@@ -51,8 +51,8 @@
     var MSG_GET_TOKEN = 'worker_proxy wants to get communication token';
 
     if (location.origin == EXTENSION_ORIGIN) {
-        if (chrome.extension.getBackgroundPage &&
-            chrome.extension.getBackgroundPage() === window) {
+        if (chrome.extension.getBackgroundPage ?
+            chrome.extension.getBackgroundPage() === window : typeof importScripts === "function" && typeof chrome == "object") {
             chrome.runtime.onMessage.addListener(backgroundPageMessageHandler);
         } else {
             window.addEventListener('message', extensionProxyMessageHandler);
